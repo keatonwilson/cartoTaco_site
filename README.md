@@ -1,43 +1,49 @@
-# Astro Starter Kit: Minimal
+# CartoTaco — Landing Site
 
-```sh
-npm create astro@latest -- --template minimal
+Marketing site for [CartoTaco](https://carto-taco.vercel.app), a curated guide to Tucson's best small, local Mexican restaurants. No algorithms. No sponsored results. Just the spots worth knowing.
+
+## Stack
+
+- [Astro](https://astro.build/) — static site framework
+- [Tailwind CSS v4](https://tailwindcss.com/) — utility-first styling via Vite plugin
+- Deployed on [Vercel](https://vercel.com/)
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
 ├── public/
+│   ├── favicon.ico
+│   ├── no_words.png          # Logo (icon only)
+│   ├── color_light_bg.png    # Logo (with background)
+│   └── carto_scrn_*.png      # App screenshots
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── pages/
+│   │   └── index.astro       # Single-page site
+│   └── styles/
+│       └── global.css        # Tailwind config + custom tokens
+└── astro.config.mjs
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Getting Started
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+npm install
+npm run dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+The dev server runs at `http://localhost:4321`.
 
-## 🧞 Commands
+## Build
 
-All commands are run from the root of the project, from a terminal:
+```bash
+npm run build    # output to /dist
+npm run preview  # preview the build locally
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Features
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Dark/light mode toggle (persisted via `localStorage`, flash-free)
+- Fully responsive — mobile sticky CTA, desktop nav
+- Grain texture overlay throughout
+- Single `.astro` page, no JS framework
