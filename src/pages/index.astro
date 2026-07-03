@@ -57,6 +57,9 @@ import '../styles/global.css';
           </a>
         </div>
         <div class="flex items-center gap-4">
+          <a href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex text-xs font-bold font-body uppercase tracking-widest text-text-secondary hover:text-accent">
+            Taco Census
+          </a>
           <a href="https://carto-taco.vercel.app" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover border border-accent px-4 py-2 hover:bg-accent hover:text-white">
             Open the App
           </a>
@@ -109,15 +112,27 @@ import '../styles/global.css';
             No algorithms. No sponsored results.<br class="hidden sm:block" />
             Just the spots worth knowing.
           </p>
-          <div class="mt-12">
+          <a href="#whats-new" class="mt-10 inline-flex items-center gap-3 group">
+            <span class="text-[10px] font-body font-bold uppercase tracking-widest text-white bg-accent px-2 py-1 shrink-0">New</span>
+            <span class="text-xs font-body uppercase tracking-widest text-text-secondary group-hover:text-accent transition-colors">Our biggest update yet &mdash; the Taco Census, Map Lenses + more &darr;</span>
+          </a>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
             <a
               href="https://carto-taco.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              class="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
+              class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
             >
               Open CartoTaco
               <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a
+              href="https://carto-taco.vercel.app/census"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center justify-center gap-3 px-8 py-4 text-accent font-display font-bold uppercase tracking-wider text-sm border-2 border-accent hover:bg-accent hover:text-white"
+            >
+              Explore the Taco Census
             </a>
           </div>
         </div>
@@ -205,7 +220,7 @@ import '../styles/global.css';
             <div class="bg-bg-primary border-2 border-border-strong aspect-[9/16] mb-5 overflow-hidden">
               <img src="/carto_scrn_3.png" alt="App screenshot 3" class="w-full h-full object-cover" />
             </div>
-            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Build custom taco-trails to maximize deliciousness</p>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Build taco trails you can walk, bike, or drive</p>
           </div>
         </div>
 
@@ -229,9 +244,9 @@ import '../styles/global.css';
             </div>
 
             <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-scales text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Spot Comparison</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Put up to 3 spots side-by-side on a shareable URL. Settle the debate with data.</p>
+              <i class="ph ph-share-network text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Shareable Everything</h4>
+              <p class="text-xs text-text-secondary leading-relaxed">Trails, comparisons, summit votes, and the census all live on links. Send tacos to the group chat.</p>
             </div>
 
             <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
@@ -249,7 +264,7 @@ import '../styles/global.css';
             <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
               <i class="ph ph-newspaper text-accent text-3xl mb-3 block"></i>
               <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Rich Spot Cards</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Hours, proteins, salsa count, heat gauge, radar chart, and the handmade tortilla badge.</p>
+              <p class="text-xs text-text-secondary leading-relaxed">Week Rhythm hours, proteins, the full salsa lineup, a Heat Ladder with city context, and the handmade tortilla badge.</p>
             </div>
 
           </div>
@@ -257,24 +272,116 @@ import '../styles/global.css';
       </div>
     </section>
 
+    <!-- ===== JUST SHIPPED ===== -->
+    <section id="whats-new" class="py-20 md:py-28 bg-bg-primary relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-accent mb-4">Just shipped</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
+          The biggest update yet
+        </h2>
+        <p class="text-sm text-text-secondary mb-14 max-w-2xl leading-relaxed">
+          A full visual redesign plus a dozen new data-driven features &mdash; all built from data the map already had. The theme of the release: <span class="text-accent font-bold">the data is the decoration.</span> Still zero star ratings.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-chart-bar text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">The Tucson Taco Census</h3>
+            <p class="text-xs text-text-secondary leading-relaxed mb-3">
+              We counted every taco in Tucson. A live, shareable dashboard of the whole city's taco scene: how many spots are open right now, the protein leaderboard, tortilla politics (corn vs. flour vs. both), and a day-by-hour grid of when the city's taco doors are open.
+            </p>
+            <a href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover">
+              Explore the census <i class="ph-bold ph-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-stack text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Map Lenses</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">
+              The map now visualizes its own data. One tap switches between <span class="text-text-primary font-bold">Spots</span> (the classic map), <span class="text-text-primary font-bold">Heat</span> (every spot colored by how hot its salsa runs), <span class="text-text-primary font-bold">Salsas</span> (marker size = salsa count), and <span class="text-text-primary font-bold">Density</span>. Where does Tucson burn hottest? Switch the lens.
+            </p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-fire text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Salsa Lineup + Heat Ladder</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">
+              Every salsa at every spot, rated &mdash; verde, rojo, macha, plus each house's own creations, with individual heat ratings and tap-to-reveal descriptions. And a Heat Ladder that puts it in city context: <em>"Hotter than 82% of Tucson spots."</em>
+            </p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-fingerprint-simple text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Vibe Fingerprints</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">
+              The anti-review, now live. No stars, no essays &mdash; four quick votes: 🔥 Heat Legit &middot; 🌮 Authentic &middot; 💸 Value &middot; 🎭 Vibe. Every spot builds a visual fingerprint you can compare across the map.
+            </p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-scales text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Spot Comparison, Rebuilt</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">
+              Pick 2&ndash;3 spots and get an instant verdict. An at-a-glance strip crowns the leader per category with its margin, and menu + protein radar fingerprints overlay on a single chart for honest head-to-head shapes. Settle the argument.
+            </p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-bicycle text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Bike the Taco Trail</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">
+              The multi-stop Taco Trail builder now routes <span class="text-text-primary font-bold">Walk / Bike / Drive</span> &mdash; cycling routes via bike-appropriate streets, shareable trail links included. Plan a crawl you can pedal.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- The glow-up -->
+        <div class="mt-16 pt-12 border-t border-border">
+          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-8">
+            And a whole new look
+          </h3>
+          <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">New typography, a warm coral design system, and a dark mode that's consistent everywhere.</p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">Every chart rebuilt on one design language, with palettes validated for colorblind accessibility.</p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">Week Rhythm hours: each spot's week as tiny open-hour bars. Tap a day for exact times.</p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">Map markers now show what kind of spot you're looking at &mdash; restaurant, stand, or truck.</p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">Filters became chips with live counts ("Beef &middot; 23") plus a two-thumb spice slider &mdash; the filter panel doubles as a mini census.</p>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
+              <p class="text-sm text-text-secondary leading-relaxed">Confetti when a Taco Summit vote crowns a winner. Yes, confetti.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== COMING SOON ===== -->
-    <section class="py-20 md:py-28 bg-bg-primary relative grain overflow-hidden">
+    <section class="py-20 md:py-28 bg-bg-secondary relative grain overflow-hidden">
       <div class="max-w-5xl mx-auto px-6 relative z-10">
         <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">What's next</p>
         <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
           On the roadmap
         </h2>
         <p class="text-sm text-text-secondary mb-14 max-w-xl">No launch dates. Just the direction.</p>
-        <div class="grid sm:grid-cols-3 gap-6">
-
-          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-smiley-sticker text-accent text-3xl mb-4 block"></i>
-            <div class="flex items-center gap-3 mb-3">
-              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Anti-Review</h3>
-              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
-            </div>
-            <p class="text-xs text-text-secondary leading-relaxed">No stars. No essays. Four emoji dimensions — Heat Legit, Authentic, Value, Vibe. Tap your honest read on a spot and move on.</p>
-          </div>
+        <div class="grid sm:grid-cols-2 gap-6 max-w-3xl">
 
           <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
             <i class="ph ph-map-pin text-accent text-3xl mb-4 block"></i>
