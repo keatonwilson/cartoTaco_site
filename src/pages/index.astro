@@ -45,7 +45,7 @@ import '../styles/global.css';
     </script>
   </head>
 
-  <body class="bg-bg-primary text-text-primary font-body antialiased">
+  <body class="bg-bg-primary text-text-primary font-body antialiased pb-20 sm:pb-0">
 
     <!-- ===== NAV ===== -->
     <nav id="nav" class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border-strong">
@@ -112,9 +112,9 @@ import '../styles/global.css';
             No algorithms. No sponsored results.<br class="hidden sm:block" />
             Just the spots worth knowing.
           </p>
-          <a href="#whats-new" class="mt-10 inline-flex items-center gap-3 group">
-            <span class="text-[10px] font-body font-bold uppercase tracking-widest text-white bg-accent px-2 py-1 shrink-0">New</span>
-            <span class="text-xs font-body uppercase tracking-widest text-text-secondary group-hover:text-accent transition-colors">Our biggest update yet &mdash; the Taco Census, Map Lenses + more &darr;</span>
+          <a id="open-now" href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="mt-10 inline-flex items-center gap-3 group">
+            <span class="live-dot shrink-0" aria-hidden="true"></span>
+            <span data-live-text class="text-xs font-body uppercase tracking-widest text-text-secondary group-hover:text-accent transition-colors">Live from the Taco Census &rarr;</span>
           </a>
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
             <a
@@ -201,26 +201,23 @@ import '../styles/global.css';
           How it works
         </h2>
         <div class="grid md:grid-cols-3 gap-8 md:gap-6">
-          <!-- Screenshot 1 -->
           <div>
-            <div class="bg-bg-primary border-2 border-border-strong aspect-[9/16] mb-5 overflow-hidden">
-              <img src="/carto_scrn_1.png" alt="App screenshot 1" class="w-full h-full object-cover" />
-            </div>
-            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Small data, powerful viz</p>
-          </div>
-          <!-- Screenshot 2 -->
-          <div>
-            <div class="bg-bg-primary border-2 border-border-strong aspect-[9/16] mb-5 overflow-hidden">
-              <img src="/carto_scrn_2.png" alt="App screenshot 2" class="w-full h-full object-cover" />
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/map-spots.jpg" width="2400" height="1857" alt="The CartoTaco map of central Tucson with search, Surprise Me, Trail and lens controls" class="w-full h-full object-cover object-left-top" />
             </div>
             <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Filters and search to find what you want</p>
           </div>
-          <!-- Screenshot 3 -->
           <div>
-            <div class="bg-bg-primary border-2 border-border-strong aspect-[9/16] mb-5 overflow-hidden">
-              <img src="/carto_scrn_3.png" alt="App screenshot 3" class="w-full h-full object-cover" />
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="w-full h-full object-cover object-top" />
             </div>
-            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Build taco trails you can walk, bike, or drive</p>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Small data, powerful viz</p>
+          </div>
+          <div>
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: hours, address, vibe check, menu and protein radar charts" class="w-full h-full object-cover object-top" />
+            </div>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Every spot, in detail</p>
           </div>
         </div>
 
@@ -232,39 +229,39 @@ import '../styles/global.css';
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
             <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-stack text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Map Lenses</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">One tap switches the map between Spots, Heat, Salsas and Density. Where does Tucson burn hottest? Switch the lens.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-fire text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Salsa Lineup + Heat Ladder</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">Every salsa at every spot, rated, plus a heat score in city context: <em>“Hotter than 82% of Tucson spots.”</em></p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-fingerprint-simple text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Vibe Fingerprints</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">The anti-review. Four quick votes (Heat Legit, Authentic, Value, Vibe) build a fingerprint for every spot.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-scales text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Spot Comparison</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">Pick 2&ndash;3 spots. The leader in each category is called out and their radar shapes overlay on one chart.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
               <i class="ph ph-trophy text-accent text-3xl mb-3 block"></i>
               <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Taco Summit</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Can't agree where to eat? Share an anonymous ranked-choice voting link. Democracy decides.</p>
+              <p class="text-sm text-text-secondary leading-relaxed">Can’t agree where to eat? Share an anonymous ranked-choice voting link. Democracy decides.</p>
             </div>
 
             <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-magic-wand text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Taste Profile</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Your taco archetype, derived from your favorites. 13 types from Heat Seeker to The Purist.</p>
-            </div>
-
-            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-share-network text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Shareable Everything</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Trails, comparisons, summit votes, and the census all live on links. Send tacos to the group chat.</p>
-            </div>
-
-            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-heart text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Favorites</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Save your spots. Filter the map to show only what you love.</p>
-            </div>
-
-            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-shuffle text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Surprise Me</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">One tap. One random spot. Sometimes the map knows better than you do.</p>
-            </div>
-
-            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
-              <i class="ph ph-newspaper text-accent text-3xl mb-3 block"></i>
-              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Rich Spot Cards</h4>
-              <p class="text-xs text-text-secondary leading-relaxed">Week Rhythm hours, proteins, the full salsa lineup, a Heat Ladder with city context, and the handmade tortilla badge.</p>
+              <i class="ph ph-bicycle text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Taco Trail</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">A multi-stop crawl routed for walking, biking or driving, with a shareable link.</p>
             </div>
 
           </div>
@@ -277,98 +274,68 @@ import '../styles/global.css';
       <div class="max-w-5xl mx-auto px-6 relative z-10">
         <p class="font-body text-xs uppercase tracking-[0.3em] text-accent mb-4">Just shipped</p>
         <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
-          The biggest update yet
+          What’s new on the map
         </h2>
         <p class="text-sm text-text-secondary mb-14 max-w-2xl leading-relaxed">
-          A full visual redesign plus a dozen new data-driven features &mdash; all built from data the map already had. The theme of the release: <span class="text-accent font-bold">the data is the decoration.</span> Still zero star ratings.
+          Every marker now tells you where a spot stands: open, closed, or still being scouted. The census only counts places that have been checked in person. Still zero star ratings.
         </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-14">
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/closed-spot.jpg" width="2200" height="1684" loading="lazy" alt="North-central Tucson on CartoTaco: coral markers for vetted spots, a grey cross for Hot Dogs 501, which has closed, and grey question marks for spots still being scouted" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">Vetted, closed (&times;) and scouted (?) on one map</figcaption>
+          </figure>
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/census-growth.jpg" width="1812" height="921" loading="lazy" alt="The map keeps growing: spots on the map from March to October, stepping up to 24 with one step down for a closure" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">The census timeline, closures included</figcaption>
+          </figure>
+        </div>
 
         <div class="grid md:grid-cols-2 gap-4">
 
           <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-x-circle text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Closed Spots Stay Marked</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">When a spot closes for good it becomes a grey &times; on the map with a note on its card. It drops out of stats, recommendations and trails, but it doesn’t vanish.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-question text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Scouted, Not Yet Vetted</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Spots waiting for a visit show as grey question marks with a preliminary card. They aren’t counted anywhere until someone has eaten there.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-chart-line-up text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">An Honest Growth Chart</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The census timeline now counts openings <em>and</em> closures. A closure steps the line down from that day on instead of quietly rewriting the past.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
             <i class="ph ph-chart-bar text-accent text-3xl mb-3 block"></i>
             <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">The Tucson Taco Census</h3>
-            <p class="text-xs text-text-secondary leading-relaxed mb-3">
-              We counted every taco in Tucson. A live, shareable dashboard of the whole city's taco scene: how many spots are open right now, the protein leaderboard, tortilla politics (corn vs. flour vs. both), and a day-by-hour grid of when the city's taco doors are open.
-            </p>
+            <p class="text-sm text-text-secondary leading-relaxed mb-3">A live, shareable dashboard of the whole city’s taco scene: open right now, the protein leaderboard, tortilla politics, and when the city’s taco doors are open.</p>
             <a href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover">
               Explore the census <i class="ph-bold ph-arrow-right"></i>
             </a>
           </div>
 
           <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-stack text-accent text-3xl mb-3 block"></i>
-            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Map Lenses</h3>
-            <p class="text-xs text-text-secondary leading-relaxed">
-              The map now visualizes its own data. One tap switches between <span class="text-text-primary font-bold">Spots</span> (the classic map), <span class="text-text-primary font-bold">Heat</span> (every spot colored by how hot its salsa runs), <span class="text-text-primary font-bold">Salsas</span> (marker size = salsa count), and <span class="text-text-primary font-bold">Density</span>. Where does Tucson burn hottest? Switch the lens.
-            </p>
+            <i class="ph ph-circles-three text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Density Lens, Rebuilt</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The Density lens is now a true heatmap of where Tucson’s spots cluster, instead of a dot per spot.</p>
           </div>
 
           <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-fire text-accent text-3xl mb-3 block"></i>
-            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Salsa Lineup + Heat Ladder</h3>
-            <p class="text-xs text-text-secondary leading-relaxed">
-              Every salsa at every spot, rated &mdash; verde, rojo, macha, plus each house's own creations, with individual heat ratings and tap-to-reveal descriptions. And a Heat Ladder that puts it in city context: <em>"Hotter than 82% of Tucson spots."</em>
-            </p>
+            <i class="ph ph-map-trifold text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Down to Green Valley</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The map now reaches south along I-19 to Green Valley.</p>
           </div>
 
-          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-fingerprint-simple text-accent text-3xl mb-3 block"></i>
-            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Vibe Fingerprints</h3>
-            <p class="text-xs text-text-secondary leading-relaxed">
-              The anti-review, now live. No stars, no essays &mdash; four quick votes: 🔥 Heat Legit &middot; 🌮 Authentic &middot; 💸 Value &middot; 🎭 Vibe. Every spot builds a visual fingerprint you can compare across the map.
-            </p>
-          </div>
-
-          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-scales text-accent text-3xl mb-3 block"></i>
-            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Spot Comparison, Rebuilt</h3>
-            <p class="text-xs text-text-secondary leading-relaxed">
-              Pick 2&ndash;3 spots and get an instant verdict. An at-a-glance strip crowns the leader per category with its margin, and menu + protein radar fingerprints overlay on a single chart for honest head-to-head shapes. Settle the argument.
-            </p>
-          </div>
-
-          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-bicycle text-accent text-3xl mb-3 block"></i>
-            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Bike the Taco Trail</h3>
-            <p class="text-xs text-text-secondary leading-relaxed">
-              The multi-stop Taco Trail builder now routes <span class="text-text-primary font-bold">Walk / Bike / Drive</span> &mdash; cycling routes via bike-appropriate streets, shareable trail links included. Plan a crawl you can pedal.
-            </p>
-          </div>
-
-        </div>
-
-        <!-- The glow-up -->
-        <div class="mt-16 pt-12 border-t border-border">
-          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-8">
-            And a whole new look
-          </h3>
-          <div class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">New typography, a warm coral design system, and a dark mode that's consistent everywhere.</p>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">Every chart rebuilt on one design language, with palettes validated for colorblind accessibility.</p>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">Week Rhythm hours: each spot's week as tiny open-hour bars. Tap a day for exact times.</p>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">Map markers now show what kind of spot you're looking at &mdash; restaurant, stand, or truck.</p>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">Filters became chips with live counts ("Beef &middot; 23") plus a two-thumb spice slider &mdash; the filter panel doubles as a mini census.</p>
-            </div>
-            <div class="flex items-start gap-4">
-              <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">&rarr;</span>
-              <p class="text-sm text-text-secondary leading-relaxed">Confetti when a Taco Summit vote crowns a winner. Yes, confetti.</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -384,12 +351,30 @@ import '../styles/global.css';
         <div class="grid sm:grid-cols-2 gap-6 max-w-3xl">
 
           <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-pepper text-accent text-3xl mb-4 block"></i>
+            <div class="flex items-center gap-3 mb-3">
+              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Salsa Atlas</h3>
+              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed">Every salsa style in one place, grouped by family, colour, region or heat. Each gets its own page with ingredients, history and the spots that serve it, and the salsas you favorite tune your Taste Profile.</p>
+          </div>
+
+          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-chat-circle-dots text-accent text-3xl mb-4 block"></i>
+            <div class="flex items-center gap-3 mb-3">
+              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">AI Assistant</h3>
+              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed">Ask the map in plain language: “open now, birria, handmade tortillas, near downtown.” Answers come only from the spots on the map, so it’s still a short list, just faster to search.</p>
+          </div>
+
+          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
             <i class="ph ph-map-pin text-accent text-3xl mb-4 block"></i>
             <div class="flex items-center gap-3 mb-3">
               <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Check-Ins</h3>
               <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
             </div>
-            <p class="text-xs text-text-secondary leading-relaxed">Geo-fenced check-ins with notes, aficionado badges, a public taco passport profile, and your recent visits visible right on spot cards.</p>
+            <p class="text-sm text-text-secondary leading-relaxed">Geo-fenced check-ins with notes, aficionado badges, a public taco passport profile, and your recent visits visible right on spot cards.</p>
           </div>
 
           <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
@@ -398,7 +383,7 @@ import '../styles/global.css';
               <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Meetups</h3>
               <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
             </div>
-            <p class="text-xs text-text-secondary leading-relaxed">Create and discover real taco meetup events pinned to the map. Find your people. Eat together.</p>
+            <p class="text-sm text-text-secondary leading-relaxed">Create and discover real taco meetup events pinned to the map. Find your people. Eat together.</p>
           </div>
 
         </div>
@@ -523,7 +508,7 @@ import '../styles/global.css';
           class="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
         >
           Create a Free Account
-          <ph-arrow-right class="group-hover:translate-x-1 transition-transform" size="16" weight="bold"></ph-arrow-right>
+          <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
         </a>
         <p class="mt-4 text-xs text-text-tertiary">Or just browse without one — the map works great either way.</p>
       </div>
@@ -592,6 +577,22 @@ import '../styles/global.css';
         Open CartoTaco
       </a>
     </div>
+
+    <script>
+      import gsap from 'gsap';
+      import { countOpenNow } from '../lib/openNow.js';
+
+      // Live line: how many vetted spots are open right now, Tucson time.
+      // The static "Live from the Taco Census" link stays if the request fails.
+      const openNow = document.getElementById('open-now');
+      countOpenNow().then(({ open, total }) => {
+        openNow.querySelector('[data-live-text]').innerHTML =
+          `<strong class="live-num"><span data-count>${open}</span> of ${total}</strong> spots open right now &rarr;`;
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          gsap.from(openNow.querySelector('[data-count]'), { textContent: 0, duration: 1.4, ease: 'power2.out', snap: { textContent: 1 } });
+        }
+      }).catch(() => {});
+    </script>
 
     <!-- Dark mode toggle script -->
     <script is:inline>

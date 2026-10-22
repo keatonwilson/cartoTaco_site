@@ -16,10 +16,12 @@ Marketing site for [CartoTaco](https://carto-taco.vercel.app), a curated guide t
 │   ├── favicon.ico
 │   ├── no_words.png          # Logo (icon only)
 │   ├── color_light_bg.png    # Logo (with background)
-│   └── carto_scrn_*.png      # App screenshots
+│   └── shots/                # App screenshots (captured from the live app)
 ├── src/
 │   ├── pages/
 │   │   └── index.astro       # Single-page site
+│   ├── lib/
+│   │   └── openNow.js        # Live "open right now" count (self-check: node src/lib/openNow.test.mjs)
 │   └── styles/
 │       └── global.css        # Tailwind config + custom tokens
 └── astro.config.mjs
@@ -46,4 +48,5 @@ npm run preview  # preview the build locally
 - Dark/light mode toggle (persisted via `localStorage`, flash-free)
 - Fully responsive — mobile sticky CTA, desktop nav
 - Grain texture overlay throughout
+- Live "spots open right now" line, read from the public `sites_complete` view
 - Single `.astro` page, no JS framework
