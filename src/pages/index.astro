@@ -1,35 +1,5 @@
 ---
 import '../styles/global.css';
-
-const APP = 'https://carto-taco.vercel.app';
-const CENSUS = `${APP}/census`;
-
-const lenses = [
-  ['Spots', 'The classic map. Restaurants, stands and trucks, each with its own marker.'],
-  ['Heat', 'Every spot coloured by how hot its salsa runs. Darker means hotter (left).'],
-  ['Salsas', 'Marker size is the salsa count. Find the places with a whole bar of them.'],
-  ['Density', 'A true heatmap of where the spots cluster. South Tucson burns brightest (right).'],
-];
-
-const cardDetails = [
-  ['Week rhythm hours', 'Each spot’s week as small open-hour bars, with an Open Now flag. Tap a day for the exact times.'],
-  ['Salsa lineup and heat ladder', 'Every salsa rated on its own, and a heat score with city context: “hotter than 82% of Tucson spots.”'],
-  ['Menu and protein shapes', 'Two radar charts show what a spot really leans on, so you can tell a birria place from an asada place at a glance.'],
-  ['Vibe fingerprints', 'Four quick votes instead of reviews: heat legit, authentic, value, vibe. No stars, no essays.'],
-];
-
-const together = [
-  ['Taco Trail', 'A multi-stop crawl routed for walking, biking or driving, shared as a link.'],
-  ['Compare', 'Pick two or three spots. The leader in each category is called out, and their radar shapes overlay on one chart.'],
-  ['Taco Summit', 'Can’t agree where to eat? Send an anonymous ranked-choice vote. Confetti for the winner.'],
-  ['Surprise Me', 'One tap, one random open spot. Sometimes the map knows better than you do.'],
-];
-
-const spots = [
-  ['El Antojo Poblano', 'Westside', 'A family kitchen bringing southern Mexican cooking to the Westside. The mole comes straight from Puebla, made by their mother and shipped to Tucson. Get the huaraches.'],
-  ['El Chivo de Oro', 'South Side', 'A food-truck institution since 2008. Maria Elena Domínguez’s goat birria has a devoted following: quesabirria, Sonoran hot dogs and homemade tortillas on W. Irvington.'],
-  ['Tacos Apson', 'South 12th Avenue', 'No frills, no menu on the wall, just carne asada and costilla tacos done exactly right. You drive past three times before you find it. Worth every wrong turn.'],
-];
 ---
 
 <html lang="en">
@@ -39,16 +9,19 @@ const spots = [
     <link rel="icon" type="image/png" href="/no_words.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>CartoTaco · The taco guide that knows Tucson</title>
-    <meta name="description" content="A hand-picked map of Tucson's small, local taco spots. No algorithms, no sponsored results, no star ratings." />
+    <title>CartoTaco — The Tucson Taco Guide That Actually Knows Tucson</title>
+    <meta name="description" content="No algorithms. No sponsored results. Just the spots worth knowing. A curated guide to Tucson's best small, local Mexican restaurants." />
 
-    <meta property="og:title" content="CartoTaco · The Tucson Taco Guide" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="CartoTaco — The Tucson Taco Guide" />
     <meta property="og:description" content="No algorithms. No sponsored results. Just the spots worth knowing." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cartotaco.com" />
     <meta property="og:image" content="https://cartotaco.com/og-image.png" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CartoTaco · The Tucson Taco Guide" />
+    <meta name="twitter:title" content="CartoTaco — The Tucson Taco Guide" />
     <meta name="twitter:description" content="No algorithms. No sponsored results. Just the spots worth knowing." />
     <meta name="twitter:image" content="https://cartotaco.com/og-image.png" />
 
@@ -56,353 +29,566 @@ const spots = [
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css" />
 
     <script is:inline>
-      if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
+      (function() {
+        const root = document.documentElement;
+        root.classList.add('no-transition');
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          root.classList.add('dark');
+        }
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            root.classList.remove('no-transition');
+          });
+        });
+      })();
     </script>
   </head>
 
-  <body class="antialiased">
+  <body class="bg-bg-primary text-text-primary font-body antialiased pb-20 sm:pb-0">
 
     <!-- ===== NAV ===== -->
-    <header class="fixed top-0 inset-x-0 z-50 bg-bg-primary">
-      <nav class="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-4" aria-label="Main">
-        <a href="#" class="flex items-center gap-2.5">
-          <img src="/no_words.png" alt="" class="h-9 w-9" />
-          <span class="display text-[1.6rem]">CartoTaco</span>
-        </a>
-        <div class="flex items-center gap-5 md:gap-7 text-small font-medium">
-          <a href="#map" class="hidden md:inline hover:text-accent-ink">The map</a>
-          <a href="#census" class="hidden md:inline hover:text-accent-ink">Census</a>
-          <a href="#status" class="hidden md:inline hover:text-accent-ink">Open &amp; closed</a>
-          <a href="https://instagram.com/carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Instagram" class="hidden sm:inline text-xl hover:text-accent-ink"><i class="ph ph-instagram-logo"></i></a>
-          <a href="https://www.threads.com/@carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Threads" class="hidden sm:inline text-xl hover:text-accent-ink"><i class="ph ph-threads-logo"></i></a>
-          <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="text-xl hover:text-accent-ink">
-            <i class="ph ph-sun hidden dark:block"></i>
-            <i class="ph ph-moon block dark:hidden"></i>
+    <nav id="nav" class="fixed top-0 left-0 right-0 z-50 bg-bg-primary/80 backdrop-blur-md border-b border-border-strong">
+      <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="/no_words.png" alt="CartoTaco logo" class="h-10 w-10" />
+          <a href="#" class="font-display text-2xl font-extrabold text-text-primary uppercase tracking-wider">
+            Carto<span class="text-accent">Taco</span>
+          </a>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex text-xs font-bold font-body uppercase tracking-widest text-text-secondary hover:text-accent">
+            Taco Census
+          </a>
+          <a href="https://carto-taco.vercel.app" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover border border-accent px-4 py-2 hover:bg-accent hover:text-white">
+            Open the App
+          </a>
+          <div class="flex items-center gap-2">
+            <a
+              href="https://instagram.com/carto_taco"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="CartoTaco on Instagram"
+              class="text-text-tertiary hover:text-accent transition-colors text-xl"
+              title="@carto_taco on Instagram"
+            >
+              <i class="ph ph-instagram-logo"></i>
+            </a>
+            <a
+              href="https://www.threads.com/@carto_taco"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="CartoTaco on Threads"
+              title="@carto_taco on Threads"
+              class="text-text-tertiary hover:text-text-primary transition-colors text-xl"
+            >
+              <i class="ph ph-threads-logo"></i>
+            </a>
+          </div>
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="Toggle dark mode"
+            class="p-2 text-text-secondary hover:text-text-primary"
+          >
+            <i class="ph ph-sun hidden dark:block text-xl"></i>
+            <i class="ph ph-moon block dark:hidden text-xl"></i>
           </button>
-          <a href={APP} target="_blank" rel="noopener noreferrer" class="btn !py-2 !px-4 !text-small">Open the app</a>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
 
-    <main>
-      <!-- ===== HERO ===== -->
-      <section class="pt-28 md:pt-36 pb-24 md:pb-36 bg-bg-primary overflow-hidden" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <h1 class="display text-display max-w-[12ch]" data-rise>The taco guide that knows Tucson</h1>
-          <div class="mt-10 md:mt-14 grid lg:grid-cols-12 gap-10 lg:gap-8 items-start">
-            <div class="lg:col-span-4">
-              <p class="text-lead max-w-md" data-rise>
-                A hand-picked map of Tucson’s small, local taco spots. No algorithms, no sponsored results, no star ratings.
-              </p>
-              <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-rise>
-                <a href={APP} target="_blank" rel="noopener noreferrer" class="btn">Open the map <i class="ph-bold ph-arrow-right"></i></a>
-                <a href="#census" class="link">See the Taco Census</a>
-              </div>
-              <div class="mt-12" data-rise>
-                <a id="open-now" href={CENSUS} target="_blank" rel="noopener noreferrer" class="live">
-                  <span class="live-dot" aria-hidden="true"></span>
-                  <span data-live-text class="sm:whitespace-nowrap">See who’s open right now in the Taco Census</span>
-                </a>
-              </div>
-            </div>
-            <figure class="lg:col-span-8 lg:-mr-[max(2rem,calc((100vw-72rem)/2+2rem))]" data-rise>
-              <div class="overflow-hidden rounded-[1.25rem]">
-                <img id="hero-map" src="/shots/map-spots.jpg" width="2400" height="1857" alt="The CartoTaco map of central Tucson: coral markers for taco spots from downtown down South 12th Avenue, with the search, Surprise Me, Trail and lens controls" class="shot" />
-              </div>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== WHY ===== -->
-      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8">
-          <h2 class="display text-heading lg:col-span-5" data-rise>A small list, on purpose</h2>
-          <div class="lg:col-span-7 space-y-6 max-w-2xl" data-rise>
-            <p class="text-lead">
-              Search for tacos and you get the same five places with 4.2 stars and 800 reviews. Half are chains. None are what you were looking for. The wisdom of the crowd isn’t wise. It’s just loud.
-            </p>
-            <p>
-              CartoTaco runs on a different idea: one person who really knows a place is worth more than a thousand people who kinda liked it. Every spot here was chosen on purpose. Places that have cooked the same way for decades. Family kitchens without a website. Trucks that move. You won’t find everything, you’ll find the right things.
-            </p>
+    <!-- ===== HERO ===== -->
+    <section class="relative pt-32 pb-24 md:pt-44 md:pb-32 bg-bg-primary grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <div class="max-w-3xl">
+          <p class="font-body text-xs uppercase tracking-[0.3em] text-accent mb-6">Tucson, AZ</p>
+          <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] uppercase text-text-primary">
+            The taco guide<br/>
+            that actually<br/>
+            knows <span class="text-accent italic">Tucson.</span>
+          </h1>
+          <p class="mt-8 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
+            No algorithms. No sponsored results.<br class="hidden sm:block" />
+            Just the spots worth knowing.
+          </p>
+          <a id="open-now" href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="mt-10 inline-flex items-center gap-3 group">
+            <span class="live-dot shrink-0" aria-hidden="true"></span>
+            <span data-live-text class="text-xs font-body uppercase tracking-widest text-text-secondary group-hover:text-accent transition-colors">Live from the Taco Census &rarr;</span>
+          </a>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://carto-taco.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
+            >
+              Open CartoTaco
+              <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a
+              href="https://carto-taco.vercel.app/census"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center justify-center gap-3 px-8 py-4 text-accent font-display font-bold uppercase tracking-wider text-sm border-2 border-accent hover:bg-accent hover:text-white"
+            >
+              Explore the Taco Census
+            </a>
           </div>
         </div>
-      </section>
+      </div>
+      <!-- Decorative slashes -->
+      <div class="absolute top-20 right-8 md:right-16 text-accent/10 font-display text-[12rem] md:text-[20rem] font-extrabold leading-none select-none pointer-events-none" aria-hidden="true">
+        //
+      </div>
+    </section>
 
-      <!-- ===== THE MAP: LENSES ===== -->
-      <section id="map" class="sec py-20 md:py-40 bg-bg-primary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
-            <h2 class="display text-heading lg:col-span-6" data-rise>One map, four ways to read it</h2>
-            <p class="lg:col-span-6 text-lead max-w-xl" data-rise>
-              The map visualises its own data. One tap switches the lens and the whole city redraws.
-            </p>
-          </div>
-          <div class="mt-16 grid md:grid-cols-2 gap-5">
-            <figure data-rise>
-              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="shot" />
-            </figure>
-            <figure data-rise>
-              <img src="/shots/map-density.jpg" width="1800" height="1742" loading="lazy" alt="Density lens: a heatmap glowing over South Tucson and downtown" class="shot" />
-            </figure>
-          </div>
-          <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
-            {lenses.map(([name, text]) => (
-              <div data-rise>
-                <dt class="display text-[2rem]">{name}</dt>
-                <dd class="mt-2 text-text-primary">{text}</dd>
-              </div>
+    <!-- ===== THE PROBLEM ===== -->
+    <section class="py-20 md:py-28 bg-bg-secondary relative grain overflow-hidden">
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-8">The problem</p>
+        <div class="space-y-6">
+          <p class="text-base sm:text-lg text-text-primary leading-relaxed">
+            You've been there. You search for tacos, you get a list of the same five places with 4.2 stars and 800 reviews. Half of them are chains. The other half are fine. None of them are what you were looking for.
+          </p>
+          <p class="text-base sm:text-lg text-text-primary leading-relaxed">
+            The problem isn't that there's not enough information. It's that the wisdom of the masses isn't actually wise&nbsp;&mdash; it's just <span class="text-accent font-bold">loud.</span>
+          </p>
+        </div>
+        <!-- Struck-through star rating -->
+        <div class="mt-12 flex items-center gap-4 opacity-60 line-through decoration-accent decoration-[3px]">
+          <div class="flex gap-1">
+            {[1,2,3,4].map(() => (
+              <svg class="w-8 h-8 text-text-tertiary" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
             ))}
-          </dl>
-        </div>
-      </section>
-
-      <!-- ===== SPOT CARDS ===== -->
-      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-          <div class="lg:col-span-7 order-2 lg:order-1 relative pb-20 md:pb-24">
-            <figure data-rise>
-              <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: week of open hours, Open Now, address, vibe check, menu and protein radar charts, heat 6 out of 10, handmade tortillas, and its salsas" class="shot" />
-            </figure>
-            <figure class="absolute right-0 lg:-right-6 bottom-0 w-[44%]" data-rise>
-              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="shot border-[6px] border-bg-secondary" />
-            </figure>
+            <svg class="w-8 h-8 text-text-tertiary opacity-30" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
           </div>
-          <div class="lg:col-span-5 order-1 lg:order-2">
-            <h2 class="display text-heading" data-rise>What’s on a spot card</h2>
-            <p class="mt-6 text-lead" data-rise>Tap a marker and the card tells you what you need before you drive across town.</p>
-            <dl class="mt-12 space-y-8">
-              {cardDetails.map(([name, text]) => (
-                <div data-rise>
-                  <dt class="font-semibold text-lead">{name}</dt>
-                  <dd class="mt-1">{text}</dd>
-                </div>
-              ))}
-            </dl>
+          <span class="text-xl text-text-tertiary">4.2 (847 reviews)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THE PHILOSOPHY ===== -->
+    <section class="py-20 md:py-32 bg-bg-primary relative grain overflow-hidden">
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-8">The idea</p>
+        <div class="space-y-6">
+          <p class="text-base sm:text-lg text-text-primary leading-relaxed">
+            CartoTaco is built on a different idea: that one person who really knows a place is worth more than a thousand people who kinda liked it.
+          </p>
+          <p class="text-base sm:text-lg text-text-primary leading-relaxed">
+            Every restaurant in here was chosen deliberately. You won't find everything&nbsp;&mdash; you'll find the right things. Spots that have been operating the same way for decades. Family places that don't have a website. Trucks that move. The taco that someone's abuela has been making since before you were born.
+          </p>
+        </div>
+        <!-- Pull quote — big, rotated, raw -->
+        <div class="mt-20 md:mt-24 -mx-2 sm:mx-0">
+          <p class="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold text-accent uppercase leading-[0.95] -rotate-1">
+            This is a small<br/>list, on&nbsp;purpose.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="py-20 md:py-28 bg-bg-secondary relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">The app</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-16">
+          How it works
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8 md:gap-6">
+          <div>
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/map-spots.jpg" width="2400" height="1857" alt="The CartoTaco map of central Tucson with search, Surprise Me, Trail and lens controls" class="w-full h-full object-cover object-left-top" />
+            </div>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Filters and search to find what you want</p>
+          </div>
+          <div>
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="w-full h-full object-cover object-top" />
+            </div>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Small data, powerful viz</p>
+          </div>
+          <div>
+            <div class="bg-bg-primary border-2 border-border-strong aspect-[4/3] mb-5 overflow-hidden">
+              <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: hours, address, vibe check, menu and protein radar charts" class="w-full h-full object-cover object-top" />
+            </div>
+            <p class="font-display text-sm font-bold uppercase tracking-wide text-text-primary">Every spot, in detail</p>
           </div>
         </div>
-      </section>
 
-      <!-- ===== CENSUS ===== -->
-      <section id="census" class="sec py-20 md:py-40 bg-bg-chile text-on-ink" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
-            <h2 class="display text-heading lg:col-span-7" data-rise>The Tucson Taco Census</h2>
-            <p class="lg:col-span-5 text-lead text-on-ink-muted" data-rise>
-              Everything the map knows, on one shareable page, computed live from every vetted spot.
+        <!-- Feature grid -->
+        <div class="mt-20 pt-16 border-t border-border">
+          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-10">
+            Plus a lot more
+          </h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-stack text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Map Lenses</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">One tap switches the map between Spots, Heat, Salsas and Density. Where does Tucson burn hottest? Switch the lens.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-fire text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Salsa Lineup + Heat Ladder</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">Every salsa at every spot, rated, plus a heat score in city context: <em>“Hotter than 82% of Tucson spots.”</em></p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-fingerprint-simple text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Vibe Fingerprints</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">The anti-review. Four quick votes (Heat Legit, Authentic, Value, Vibe) build a fingerprint for every spot.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-scales text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Spot Comparison</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">Pick 2&ndash;3 spots. The leader in each category is called out and their radar shapes overlay on one chart.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-trophy text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Taco Summit</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">Can’t agree where to eat? Share an anonymous ranked-choice voting link. Democracy decides.</p>
+            </div>
+
+            <div class="bg-bg-primary border-2 border-border-strong p-5 hover:border-accent transition-colors">
+              <i class="ph ph-bicycle text-accent text-3xl mb-3 block"></i>
+              <h4 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-2">Taco Trail</h4>
+              <p class="text-sm text-text-secondary leading-relaxed">A multi-stop crawl routed for walking, biking or driving, with a shareable link.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== JUST SHIPPED ===== -->
+    <section id="whats-new" class="py-20 md:py-28 bg-bg-primary relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-accent mb-4">Just shipped</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
+          What’s new on the map
+        </h2>
+        <p class="text-sm text-text-secondary mb-14 max-w-2xl leading-relaxed">
+          Every marker now tells you where a spot stands: open, closed, or still being scouted. The census only counts places that have been checked in person. Still zero star ratings.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-14">
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/closed-spot.jpg" width="2200" height="1684" loading="lazy" alt="North-central Tucson on CartoTaco: coral markers for vetted spots, a grey cross for Hot Dogs 501, which has closed, and grey question marks for spots still being scouted" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">Vetted, closed (&times;) and scouted (?) on one map</figcaption>
+          </figure>
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/census-growth.jpg" width="1812" height="921" loading="lazy" alt="The map keeps growing: spots on the map from March to October, stepping up to 24 with one step down for a closure" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">The census timeline, closures included</figcaption>
+          </figure>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-x-circle text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Closed Spots Stay Marked</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">When a spot closes for good it becomes a grey &times; on the map with a note on its card. It drops out of stats, recommendations and trails, but it doesn’t vanish.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-question text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Scouted, Not Yet Vetted</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">Spots waiting for a visit show as grey question marks with a preliminary card. They aren’t counted anywhere until someone has eaten there.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-chart-line-up text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">An Honest Growth Chart</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The census timeline now counts openings <em>and</em> closures. A closure steps the line down from that day on instead of quietly rewriting the past.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-chart-bar text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">The Tucson Taco Census</h3>
+            <p class="text-sm text-text-secondary leading-relaxed mb-3">A live, shareable dashboard of the whole city’s taco scene: open right now, the protein leaderboard, tortilla politics, and when the city’s taco doors are open.</p>
+            <a href="https://carto-taco.vercel.app/census" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover">
+              Explore the census <i class="ph-bold ph-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-circles-three text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Density Lens, Rebuilt</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The Density lens is now a true heatmap of where Tucson’s spots cluster, instead of a dot per spot.</p>
+          </div>
+
+          <div class="bg-bg-secondary border-2 border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-map-trifold text-accent text-3xl mb-3 block"></i>
+            <h3 class="font-display text-base font-extrabold text-text-primary uppercase tracking-wide mb-2">Down to Green Valley</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">The map now reaches south along I-19 to Green Valley.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMING SOON ===== -->
+    <section class="py-20 md:py-28 bg-bg-secondary relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">What's next</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
+          On the roadmap
+        </h2>
+        <p class="text-sm text-text-secondary mb-14 max-w-xl">No launch dates. Just the direction.</p>
+        <div class="grid sm:grid-cols-2 gap-6 max-w-3xl">
+
+          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-map-pin text-accent text-3xl mb-4 block"></i>
+            <div class="flex items-center gap-3 mb-3">
+              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Check-Ins</h3>
+              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed">Geo-fenced check-ins with notes, aficionado badges, a public taco passport profile, and your recent visits visible right on spot cards.</p>
+          </div>
+
+          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
+            <i class="ph ph-users-three text-accent text-3xl mb-4 block"></i>
+            <div class="flex items-center gap-3 mb-3">
+              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Meetups</h3>
+              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed">Create and discover real taco meetup events pinned to the map. Find your people. Eat together.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THE CURATION ===== -->
+    <section class="py-20 md:py-28 bg-bg-tertiary relative grain overflow-hidden">
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">The list</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-14">
+          A taste of what's inside
+        </h2>
+        <div class="space-y-6">
+          <!-- Featured Spot 1 -->
+          <div class="bg-bg-primary border-2 border-border-strong p-6 sm:p-8 hover:border-accent transition-colors">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-extrabold text-accent uppercase">El Antojo Poblano</h3>
+                <span class="text-xs uppercase tracking-widest text-text-tertiary font-body">Westside</span>
+              </div>
+              <span class="shrink-0 mt-1 text-accent">
+                <i class="ph ph-map-pin text-xl"></i>
+              </span>
+            </div>
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+              A family-run kitchen bringing real southern Mexican flavors to the Westside. The mole sauce comes straight from Puebla — made by their mother and shipped to Tucson. Get the huaraches.
             </p>
           </div>
-          <div class="mt-16 grid lg:grid-cols-12 gap-5">
-            <figure class="lg:col-span-6" data-rise>
-              <img src="/shots/census-stats.jpg" width="1824" height="702" loading="lazy" alt="Census headline numbers: 24 spots on the map, 18 open right now, average heat 5.3 out of 10, 88 salsas citywide" class="shot" />
-            </figure>
-            <figure class="lg:col-span-6" data-rise>
-              <img src="/shots/census-when.jpg" width="1812" height="714" loading="lazy" alt="When can you get a taco: a day-by-hour grid, darkest from late morning to early evening, Wednesday to Saturday" class="shot" />
-            </figure>
-          </div>
-          <div class="mt-16 grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-            <figure class="lg:col-span-7" data-rise>
-              <img src="/shots/census-growth.jpg" width="1812" height="921" loading="lazy" alt="The map keeps growing: spots on the map from March to October, stepping up to 24 with one step down for a closure" class="shot" />
-            </figure>
-            <div class="lg:col-span-5 space-y-6" data-rise>
-              <p class="text-lead">The growth chart counts closures too.</p>
-              <p class="text-on-ink-muted">
-                When a spot closes, the line steps down from that day on. Earlier months keep the count they really had, so a closure never quietly rewrites the past.
-              </p>
-              <a href={CENSUS} target="_blank" rel="noopener noreferrer" class="btn">Explore the census <i class="ph-bold ph-arrow-right"></i></a>
+          <!-- Featured Spot 2 -->
+          <div class="bg-bg-primary border-2 border-border-strong p-6 sm:p-8 hover:border-accent transition-colors">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-extrabold text-accent uppercase">El Chivo de Oro</h3>
+                <span class="text-xs uppercase tracking-widest text-text-tertiary font-body">South Side</span>
+              </div>
+              <span class="shrink-0 mt-1 text-accent">
+                <i class="ph ph-map-pin text-xl"></i>
+              </span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== OPEN / CLOSED / SCOUTING ===== -->
-      <section id="status" class="sec py-20 md:py-40 bg-bg-primary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
-            <h2 class="display text-heading lg:col-span-7" data-rise>Open, closed, still scouting</h2>
-            <p class="lg:col-span-5 text-lead" data-rise>
-              Every marker says where a spot stands. The numbers only count places that have been checked in person.
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+              A south-side food truck institution since 2008. Maria Elena Domínguez's goat birria has earned a devoted following — quesabirria, Sonoran hot dogs, and homemade tortillas on W. Irvington.
             </p>
           </div>
-          <div class="mt-16 grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-            <figure class="lg:col-span-8 lg:-ml-[max(2rem,calc((100vw-72rem)/2+2rem))]" data-rise>
-              <img src="/shots/closed-spot.jpg" width="2200" height="1684" loading="lazy" alt="North-central Tucson on CartoTaco: coral markers for vetted spots like Taqueria Juanitos and El Antojo Poblano, a grey cross for Hot Dogs 501, which has closed, and grey question marks for spots still being scouted" class="shot" />
-            </figure>
-            <dl class="lg:col-span-4 space-y-9">
-              <div data-rise>
-                <dt class="font-semibold text-lead">Closed for good</dt>
-                <dd class="mt-1">A grey cross on the map and a note on its card. It drops out of stats, recommendations and trails, but it doesn’t vanish.</dd>
+          <!-- Featured Spot 3 -->
+          <div class="bg-bg-primary border-2 border-border-strong p-6 sm:p-8 hover:border-accent transition-colors">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-display text-lg sm:text-xl font-extrabold text-accent uppercase">Tacos Apson</h3>
+                <span class="text-xs uppercase tracking-widest text-text-tertiary font-body">South 12th Avenue</span>
               </div>
-              <div data-rise>
-                <dt class="font-semibold text-lead">Still being scouted</dt>
-                <dd class="mt-1">Grey question marks with a preliminary card. They aren’t counted anywhere until someone has eaten there.</dd>
-              </div>
-              <div data-rise>
-                <dt class="font-semibold text-lead">No star ratings</dt>
-                <dd class="mt-1">No stars, no rankings, no paid placement.</dd>
-              </div>
-              <div data-rise>
-                <dt class="font-semibold text-lead">Down to Green Valley</dt>
-                <dd class="mt-1">The map now reaches south along I-19 to Green Valley.</dd>
-              </div>
-            </dl>
+              <span class="shrink-0 mt-1 text-accent">
+                <i class="ph ph-map-pin text-xl"></i>
+              </span>
+            </div>
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+              No frills, no menu on the wall, just carne asada and <em>costilla</em> tacos done exactly right. The kind of place you drive past three times before you find it. Worth every wrong turn.
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== TOGETHER ===== -->
-      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8">
-          <h2 class="display text-heading lg:col-span-5" data-rise>Plan it with friends</h2>
-          <dl class="lg:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-10">
-            {together.map(([name, text]) => (
-              <div data-rise>
-                <dt class="display text-[2rem]">{name}</dt>
-                <dd class="mt-2">{text}</dd>
-              </div>
-            ))}
-          </dl>
+    <!-- ===== ABOUT ===== -->
+    <section class="py-20 md:py-28 bg-bg-primary relative grain overflow-hidden">
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">The person</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-10">
+          Why I made this
+        </h2>
+        <div class="space-y-5 text-base text-text-secondary leading-relaxed">
+          <p>
+            I've lived in Tucson long enough to know that the best food here doesn't show up on the first page of a search engine. It's in the places that don't have a marketing budget, that have never asked anyone for a review, that have been serving the same recipes for generations.
+          </p>
+          <p>
+            I built CartoTaco because I'm a data nerd and wanted a guide I could hand to a friend&nbsp;&mdash; one that skips the noise and goes straight to the places that matter. No stars, no rankings, no algorithm deciding what you should eat. Just a short list of spots I'd stake my reputation on.
+          </p>
+          <p>
+            This is a one-person project, and that's the point. Curation means someone is making choices. I'd rather give you ten great recommendations than a thousand mediocre ones.
+          </p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== THE LIST ===== -->
-      <section class="sec py-20 md:py-40 bg-bg-primary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <h2 class="display text-heading" data-rise>A taste of what’s inside</h2>
-          <div class="mt-16 grid md:grid-cols-3 gap-x-8 gap-y-14">
-            {spots.map(([name, area, text]) => (
-              <article data-rise>
-                <h3 class="display text-[2.25rem]">{name}</h3>
-                <p class="mt-1 font-semibold">{area}</p>
-                <p class="mt-4">{text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== ABOUT + ACCOUNTS ===== -->
-      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-16 lg:gap-8">
-          <div class="lg:col-span-6">
-            <h2 class="display text-heading" data-rise>Why I made this</h2>
-            <div class="mt-8 space-y-5 max-w-xl" data-rise>
-              <p>
-                The best food in Tucson doesn’t show up on the first page of a search engine. It’s in places with no marketing budget, that have never asked anyone for a review, that have served the same recipes for generations.
-              </p>
-              <p>
-                I’m a data nerd, and I wanted a guide I could hand to a friend: no stars, no rankings, no algorithm deciding what you eat. Just a short list of spots I’d stake my reputation on. It’s a one-person project, and that’s the point. Curation means someone is making choices.
-              </p>
+    <!-- ===== ACCOUNT BENEFITS ===== -->
+    <section class="py-20 md:py-28 bg-bg-secondary relative grain overflow-hidden">
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">Free accounts</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
+          Some things are better<br/>with a login.
+        </h2>
+        <p class="text-base text-text-secondary mb-10 max-w-xl leading-relaxed">
+          Still free. Still no credit card. But your tacos get personal.
+        </p>
+        <div class="space-y-5 mb-12">
+          <div class="flex items-start gap-4">
+            <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">→</span>
+            <div>
+              <p class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-1">Favorites</p>
+              <p class="text-sm text-text-secondary leading-relaxed">Save your go-to spots. They sync across devices and power your Taste Profile.</p>
             </div>
           </div>
-          <div class="lg:col-span-6">
-            <h2 class="display text-heading" data-rise>Free accounts</h2>
-            <p class="mt-8 max-w-xl" data-rise>Still free, no credit card. The map works fine without an account, but your tacos get personal with one.</p>
-            <dl class="mt-10 space-y-7 max-w-xl">
-              <div data-rise>
-                <dt class="font-semibold text-lead">Favorites</dt>
-                <dd class="mt-1">Save your go-to spots, synced across devices, and filter the map to only what you love.</dd>
-              </div>
-              <div data-rise>
-                <dt class="font-semibold text-lead">Taste profile</dt>
-                <dd class="mt-1">Your taco archetype, from Heat Seeker to The Purist, built from what you actually favorite.</dd>
-              </div>
-              <div data-rise>
-                <dt class="font-semibold text-lead">On the way</dt>
-                <dd class="mt-1">Check-ins and a taco passport, and real taco meetups pinned to the map.</dd>
-              </div>
-            </dl>
-            <div class="mt-10" data-rise>
-              <a href={APP} target="_blank" rel="noopener noreferrer" class="btn">Create a free account <i class="ph-bold ph-arrow-right"></i></a>
+          <div class="flex items-start gap-4">
+            <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">→</span>
+            <div>
+              <p class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-1">Taste Profile</p>
+              <p class="text-sm text-text-secondary leading-relaxed">Your AI-generated taco archetype, built from what you actually favorite. Unlocks automatically once you've saved a few spots.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">→</span>
+            <div>
+              <p class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-1">More coming</p>
+              <p class="text-sm text-text-secondary leading-relaxed">Check-ins, taco passport, and a public profile are on the way.</p>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+        <a
+          href="https://carto-taco.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-3 px-8 py-4 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
+        >
+          Create a Free Account
+          <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+        </a>
+        <p class="mt-4 text-xs text-text-tertiary">Or just browse without one — the map works great either way.</p>
+      </div>
+    </section>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="sec pt-20 md:pt-40 pb-10 bg-bg-ink text-on-ink overflow-hidden" data-section>
-      <div class="max-w-6xl mx-auto px-5 md:px-8">
-        <h2 class="display text-heading" data-rise>Ready to eat well?</h2>
-        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-rise>
-          <a href={APP} target="_blank" rel="noopener noreferrer" class="btn">Open CartoTaco <i class="ph-bold ph-arrow-right"></i></a>
-          <span class="text-on-ink-muted">Free. No account needed.</span>
+    <footer id="open" class="py-16 md:py-24 bg-bg-secondary border-t-2 border-border-strong relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-14">
+          <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">Free. No account needed.</p>
+          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold text-text-primary uppercase mb-6">
+            Ready to eat well?
+          </h2>
+          <a
+            href="https://carto-taco.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-3 px-10 py-5 bg-accent text-white font-display font-bold uppercase tracking-wider text-base hover:bg-accent-hover border-2 border-accent hover:border-accent-hover"
+          >
+            Open CartoTaco
+            <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform text-lg"></i>
+          </a>
         </div>
-        <p class="display mt-16 md:mt-32 text-[clamp(4.5rem,21vw,19rem)] leading-[0.8]" aria-hidden="true" data-wordmark>Carto<span class="text-accent">Taco</span></p>
-        <div class="mt-10 flex flex-wrap items-center justify-between gap-6 text-small text-on-ink-muted">
-          <div class="flex items-center gap-6">
-            <a href="mailto:info@cartotaco.com" class="hover:text-on-ink">info@cartotaco.com</a>
-            <a href="https://instagram.com/carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Instagram" class="text-xl hover:text-on-ink"><i class="ph ph-instagram-logo"></i></a>
-            <a href="https://www.threads.com/@carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Threads" class="text-xl hover:text-on-ink"><i class="ph ph-threads-logo"></i></a>
+        <div class="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="font-display text-lg font-extrabold text-text-primary uppercase tracking-wider">
+            Carto<span class="text-accent">Taco</span>
+          </p>
+          <div class="flex items-center gap-6 text-xs text-text-tertiary font-body uppercase tracking-widest">
+            <a href="mailto:info@cartotaco.com" class="hover:text-text-primary">Contact</a>
+            <div class="flex items-center gap-3">
+              <a
+                href="https://instagram.com/carto_taco"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CartoTaco on Instagram"
+                class="text-text-tertiary hover:text-accent transition-colors text-xl"
+                title="@carto_taco on Instagram"
+              >
+                <i class="ph ph-instagram-logo"></i>
+              </a>
+              <a
+                href="https://www.threads.com/@carto_taco"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CartoTaco on Threads"
+                title="@carto_taco on Threads"
+                class="text-text-tertiary hover:text-text-primary transition-colors text-xl"
+              >
+                <i class="ph ph-threads-logo"></i>
+              </a>
+            </div>
+            <span>&copy; {new Date().getFullYear()}</span>
           </div>
-          <span>&copy; {new Date().getFullYear()} CartoTaco</span>
         </div>
       </div>
     </footer>
 
-    <script is:inline>
-      document.getElementById('theme-toggle').addEventListener('click', () => {
-        const dark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-      });
-    </script>
+    <!-- ===== MOBILE STICKY CTA ===== -->
+    <div class="fixed bottom-0 left-0 right-0 p-3 bg-bg-primary/90 backdrop-blur-md border-t-2 border-border-strong sm:hidden z-40">
+      <a
+        href="https://carto-taco.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center w-full px-6 py-3.5 bg-accent text-white font-display font-bold uppercase tracking-wider text-sm hover:bg-accent-hover"
+      >
+        Open CartoTaco
+      </a>
+    </div>
 
     <script>
       import gsap from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
       import { countOpenNow } from '../lib/openNow.js';
 
-      gsap.registerPlugin(ScrollTrigger);
-
       // Live line: how many vetted spots are open right now, Tucson time.
-      // The static link to the census stays if the request fails.
+      // The static "Live from the Taco Census" link stays if the request fails.
       const openNow = document.getElementById('open-now');
       countOpenNow().then(({ open, total }) => {
         openNow.querySelector('[data-live-text]').innerHTML =
-          `<strong class="live-num"><span data-count>${open}</span> of ${total}</strong> spots open right now`;
-        openNow.classList.add('is-live');
+          `<strong class="live-num"><span data-count>${open}</span> of ${total}</strong> spots open right now &rarr;`;
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
           gsap.from(openNow.querySelector('[data-count]'), { textContent: 0, duration: 1.4, ease: 'power2.out', snap: { textContent: 1 } });
-          gsap.fromTo(openNow, { scale: 0.96 }, { scale: 1, duration: 0.6, ease: 'back.out(3)' });
         }
       }).catch(() => {});
+    </script>
 
-      const mm = gsap.matchMedia();
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // Each section's parts rise in turn: heading, text, then picture.
-        gsap.utils.toArray('[data-section]').forEach((section) => {
-          const parts = section.querySelectorAll('[data-rise]');
-          if (!parts.length) return;
-          gsap.from(parts, {
-            y: 28,
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            stagger: 0.08,
-            scrollTrigger: { trigger: section, start: 'top 90%', once: true },
-          });
-        });
-
-        // Signature move: the hero map settles in as you scroll past it.
-        gsap.fromTo('#hero-map', { scale: 1.12 }, {
-          scale: 1,
-          yPercent: 4,
-          ease: 'none',
-          scrollTrigger: { trigger: '#hero-map', start: 'top 80%', end: 'bottom top', scrub: true },
-        });
-
-        // The footer wordmark rises in under the scroll.
-        gsap.from('[data-wordmark]', {
-          y: 80,
-          ease: 'none',
-          scrollTrigger: { trigger: '[data-wordmark]', start: 'top bottom', end: 'bottom bottom', scrub: true },
-        });
+    <!-- Dark mode toggle script -->
+    <script is:inline>
+      document.getElementById('theme-toggle').addEventListener('click', function() {
+        const root = document.documentElement;
+        const isDark = root.classList.contains('dark');
+        if (isDark) {
+          root.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          root.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
       });
-
-      // Screenshots load lazily; recompute trigger positions once they have.
-      window.addEventListener('load', () => ScrollTrigger.refresh());
     </script>
   </body>
 </html>

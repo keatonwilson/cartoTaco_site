@@ -46,6 +46,7 @@ npm run preview  # preview the build locally
 ## Features
 
 - Dark/light mode toggle (persisted via `localStorage`, flash-free)
-- Fully responsive
+- Fully responsive — mobile sticky CTA, desktop nav
+- Grain texture overlay throughout
 - Live "spots open right now" line, read from the public `sites_complete` view
-- Single `.astro` page, no JS framework; scroll motion via GSAP with a reduced-motion fallback
+- Single `.astro` page, no JS framework
