@@ -69,7 +69,7 @@ const spots = [
       <nav class="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-4" aria-label="Main">
         <a href="#" class="flex items-center gap-2.5">
           <img src="/no_words.png" alt="" class="h-9 w-9" />
-          <span class="display text-[1.75rem] tracking-wide">Carto<span class="text-accent-ink">Taco</span></span>
+          <span class="display text-[1.6rem]">CartoTaco</span>
         </a>
         <div class="flex items-center gap-5 md:gap-7 text-small font-medium">
           <a href="#map" class="hidden md:inline hover:text-accent-ink">The map</a>
@@ -90,7 +90,7 @@ const spots = [
       <!-- ===== HERO ===== -->
       <section class="pt-28 md:pt-36 pb-24 md:pb-36 bg-bg-primary overflow-hidden" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8">
-          <h1 class="display text-display" data-rise>The taco guide<br class="hidden sm:block" /> that knows Tucson</h1>
+          <h1 class="display text-display max-w-[12ch]" data-rise>The taco guide that knows Tucson</h1>
           <div class="mt-10 md:mt-14 grid lg:grid-cols-12 gap-10 lg:gap-8 items-start">
             <div class="lg:col-span-4">
               <p class="text-lead max-w-md" data-rise>
@@ -108,7 +108,7 @@ const spots = [
               </div>
             </div>
             <figure class="lg:col-span-8 lg:-mr-[max(2rem,calc((100vw-72rem)/2+2rem))]" data-rise>
-              <div class="overflow-hidden">
+              <div class="overflow-hidden rounded-[1.25rem]">
                 <img id="hero-map" src="/shots/map-spots.jpg" width="2400" height="1857" alt="The CartoTaco map of central Tucson: coral markers for taco spots from downtown down South 12th Avenue, with the search, Surprise Me, Trail and lens controls" class="shot" />
               </div>
             </figure>
@@ -117,7 +117,7 @@ const spots = [
       </section>
 
       <!-- ===== WHY ===== -->
-      <section class="py-20 md:py-40 bg-bg-secondary" data-section>
+      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8">
           <h2 class="display text-heading lg:col-span-5" data-rise>A small list, on purpose</h2>
           <div class="lg:col-span-7 space-y-6 max-w-2xl" data-rise>
@@ -132,7 +132,7 @@ const spots = [
       </section>
 
       <!-- ===== THE MAP: LENSES ===== -->
-      <section id="map" class="py-20 md:py-40 bg-bg-primary" data-section>
+      <section id="map" class="sec py-20 md:py-40 bg-bg-primary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8">
           <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
             <h2 class="display text-heading lg:col-span-6" data-rise>One map, four ways to read it</h2>
@@ -151,7 +151,7 @@ const spots = [
           <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {lenses.map(([name, text]) => (
               <div data-rise>
-                <dt class="display text-[2.25rem]">{name}</dt>
+                <dt class="display text-[2rem]">{name}</dt>
                 <dd class="mt-2 text-text-primary">{text}</dd>
               </div>
             ))}
@@ -160,11 +160,16 @@ const spots = [
       </section>
 
       <!-- ===== SPOT CARDS ===== -->
-      <section class="py-20 md:py-40 bg-bg-secondary" data-section>
+      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-          <figure class="lg:col-span-7 lg:-ml-[max(2rem,calc((100vw-72rem)/2+2rem))] order-2 lg:order-1" data-rise>
-            <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: week of open hours, Open Now, address, vibe check, menu and protein radar charts, heat 6 out of 10, handmade tortillas, and its salsas" class="shot" />
-          </figure>
+          <div class="lg:col-span-7 order-2 lg:order-1 relative pb-20 md:pb-24">
+            <figure data-rise>
+              <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: week of open hours, Open Now, address, vibe check, menu and protein radar charts, heat 6 out of 10, handmade tortillas, and its salsas" class="shot" />
+            </figure>
+            <figure class="absolute right-0 lg:-right-6 bottom-0 w-[44%]" data-rise>
+              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="shot border-[6px] border-bg-secondary" />
+            </figure>
+          </div>
           <div class="lg:col-span-5 order-1 lg:order-2">
             <h2 class="display text-heading" data-rise>What’s on a spot card</h2>
             <p class="mt-6 text-lead" data-rise>Tap a marker and the card tells you what you need before you drive across town.</p>
@@ -181,7 +186,7 @@ const spots = [
       </section>
 
       <!-- ===== CENSUS ===== -->
-      <section id="census" class="py-20 md:py-40 bg-bg-ink text-on-ink" data-section>
+      <section id="census" class="sec py-20 md:py-40 bg-bg-chile text-on-ink" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8">
           <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
             <h2 class="display text-heading lg:col-span-7" data-rise>The Tucson Taco Census</h2>
@@ -213,7 +218,7 @@ const spots = [
       </section>
 
       <!-- ===== OPEN / CLOSED / SCOUTING ===== -->
-      <section id="status" class="py-20 md:py-40 bg-bg-primary" data-section>
+      <section id="status" class="sec py-20 md:py-40 bg-bg-primary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8">
           <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
             <h2 class="display text-heading lg:col-span-7" data-rise>Open, closed, still scouting</h2>
@@ -248,13 +253,13 @@ const spots = [
       </section>
 
       <!-- ===== TOGETHER ===== -->
-      <section class="py-20 md:py-40 bg-accent text-[#111418]" data-section>
+      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8">
           <h2 class="display text-heading lg:col-span-5" data-rise>Plan it with friends</h2>
           <dl class="lg:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-10">
             {together.map(([name, text]) => (
               <div data-rise>
-                <dt class="display text-[2.25rem]">{name}</dt>
+                <dt class="display text-[2rem]">{name}</dt>
                 <dd class="mt-2">{text}</dd>
               </div>
             ))}
@@ -263,13 +268,13 @@ const spots = [
       </section>
 
       <!-- ===== THE LIST ===== -->
-      <section class="py-20 md:py-40 bg-bg-secondary" data-section>
+      <section class="sec py-20 md:py-40 bg-bg-primary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8">
           <h2 class="display text-heading" data-rise>A taste of what’s inside</h2>
           <div class="mt-16 grid md:grid-cols-3 gap-x-8 gap-y-14">
             {spots.map(([name, area, text]) => (
               <article data-rise>
-                <h3 class="display text-[2.5rem]">{name}</h3>
+                <h3 class="display text-[2.25rem]">{name}</h3>
                 <p class="mt-1 font-semibold">{area}</p>
                 <p class="mt-4">{text}</p>
               </article>
@@ -279,7 +284,7 @@ const spots = [
       </section>
 
       <!-- ===== ABOUT + ACCOUNTS ===== -->
-      <section class="py-20 md:py-40 bg-bg-primary" data-section>
+      <section class="sec py-20 md:py-40 bg-bg-secondary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-16 lg:gap-8">
           <div class="lg:col-span-6">
             <h2 class="display text-heading" data-rise>Why I made this</h2>
@@ -318,7 +323,7 @@ const spots = [
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="pt-20 md:pt-40 pb-10 bg-bg-ink text-on-ink overflow-hidden" data-section>
+    <footer class="sec pt-20 md:pt-40 pb-10 bg-bg-ink text-on-ink overflow-hidden" data-section>
       <div class="max-w-6xl mx-auto px-5 md:px-8">
         <h2 class="display text-heading" data-rise>Ready to eat well?</h2>
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-rise>

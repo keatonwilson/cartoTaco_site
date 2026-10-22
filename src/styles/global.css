@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Outfit:wght@400;500;600&display=swap');
 
 @import "tailwindcss";
 
@@ -7,12 +7,13 @@
 
 @theme {
   --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bebas Neue', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
 
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-tertiary: var(--bg-tertiary);
   --color-bg-ink: var(--bg-ink);
+  --color-bg-chile: var(--bg-chile);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-on-ink: var(--on-ink);
@@ -22,37 +23,40 @@
   --color-accent-ink: var(--accent-ink);
 
   /* Five sizes do the work: display, heading, lead, body, small */
-  --text-display: clamp(3.25rem, 8.4vw, 8.5rem);
-  --text-heading: clamp(2.5rem, 5.2vw, 4.75rem);
+  --text-display: clamp(2.4rem, 7.6vw, 7.5rem);
+  --text-heading: clamp(2.5rem, 5vw, 4.5rem);
   --text-lead: clamp(1.25rem, 1.6vw, 1.5rem);
   --text-body: 1.125rem;
   --text-small: 0.9375rem;
 }
 
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --bg-tertiary: #e5e7eb;
-  --bg-ink: #111418;
-  --text-primary: #111418;
-  --text-secondary: #4b5563;
-  --on-ink: #f9fafb;
-  --on-ink-muted: #c4c9d0;
+  /* Warm adobe ground, one deep chile-red section, coral for actions */
+  --bg-primary: #f6f0e7;
+  --bg-secondary: #ece3d6;
+  --bg-tertiary: #e2d6c6;
+  --bg-ink: #2b211c;
+  --bg-chile: #7f2217;
+  --text-primary: #2b211c;
+  --text-secondary: #5e5047;
+  --on-ink: #f6eae4;
+  --on-ink-muted: #e3c9bf;
   --accent-primary: #fe795d;
   --accent-hover: #ff8f78;
-  /* Coral text needs a deeper shade to read on light grounds (5.3:1) */
-  --accent-ink: #b8401f;
+  /* Coral text needs a deeper shade to read on the light ground */
+  --accent-ink: #b2401f;
 }
 
 :root.dark {
-  --bg-primary: #111418;
-  --bg-secondary: #1a1e24;
-  --bg-tertiary: #252a31;
-  --bg-ink: #0a0c0f;
-  --text-primary: #f9fafb;
-  --text-secondary: #c4c9d0;
-  --on-ink: #f9fafb;
-  --on-ink-muted: #c4c9d0;
+  --bg-primary: #1c1613;
+  --bg-secondary: #251e1a;
+  --bg-tertiary: #30271f;
+  --bg-ink: #120e0c;
+  --bg-chile: #6a1c13;
+  --text-primary: #f6f0e7;
+  --text-secondary: #d3c5b9;
+  --on-ink: #f6eae4;
+  --on-ink-muted: #e3c9bf;
   --accent-primary: #fe795d;
   --accent-hover: #ff8f78;
   --accent-ink: #fe795d;
@@ -72,9 +76,28 @@ body {
 
 .display {
   font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 0.9;
+  font-variation-settings: 'SOFT' 50, 'WONK' 0, 'opsz' 144;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+/* Paper grain, very faint, over the whole page */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Each section rises over the one before it with a rounded top */
+.sec {
+  position: relative;
+  margin-top: -2.5rem;
+  border-radius: 2.5rem 2.5rem 0 0;
 }
 
 .btn {
@@ -87,6 +110,7 @@ body {
   color: #111418;
   font-weight: 600;
   font-size: var(--text-body);
+  border-radius: 9999px;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 .btn:hover { background: var(--accent-hover); }
@@ -109,11 +133,12 @@ body {
   outline-offset: 3px;
 }
 
-/* App screenshots sit square on a tone step, unframed */
+/* App screenshots: rounded, unframed, on a tone step while loading */
 .shot {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 1rem;
   background: var(--bg-tertiary);
 }
 
@@ -122,7 +147,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.875rem;
-  padding: 0.875rem 1.25rem;
+  padding: 0.8rem 1.3rem 0.8rem 1rem;
+  border-radius: 9999px;
   background: var(--bg-ink);
   color: var(--on-ink);
   font-size: var(--text-body);
@@ -142,14 +168,14 @@ body {
 }
 .live-num {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.75rem;
+  font-variation-settings: 'SOFT' 50, 'opsz' 48;
+  font-weight: 600;
+  font-size: 1.5rem;
   line-height: 1;
-  letter-spacing: 0.01em;
   color: var(--accent-primary);
   text-shadow: 0 0 18px rgb(254 121 93 / 0.55); /* taste-skill-ignore: requested live glow */
   margin-right: 0.25rem;
-  vertical-align: -0.15em;
+  vertical-align: -0.05em;
 }
 @keyframes live-pulse {
   0% { box-shadow: 0 0 10px 2px rgb(254 121 93 / 0.7), 0 0 0 0 rgb(254 121 93 / 0.55); } /* taste-skill-ignore: requested live glow */
