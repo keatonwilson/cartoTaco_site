@@ -74,7 +74,7 @@ const spots = [
         <div class="flex items-center gap-5 md:gap-7 text-small font-medium">
           <a href="#map" class="hidden md:inline hover:text-accent-ink">The map</a>
           <a href="#census" class="hidden md:inline hover:text-accent-ink">Census</a>
-          <a href="#honest" class="hidden md:inline hover:text-accent-ink">How it stays honest</a>
+          <a href="#status" class="hidden md:inline hover:text-accent-ink">Open &amp; closed</a>
           <a href="https://instagram.com/carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Instagram" class="hidden sm:inline text-xl hover:text-accent-ink"><i class="ph ph-instagram-logo"></i></a>
           <a href="https://www.threads.com/@carto_taco" target="_blank" rel="noopener noreferrer" aria-label="CartoTaco on Threads" class="hidden sm:inline text-xl hover:text-accent-ink"><i class="ph ph-threads-logo"></i></a>
           <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="text-xl hover:text-accent-ink">
@@ -100,15 +100,16 @@ const spots = [
                 <a href={APP} target="_blank" rel="noopener noreferrer" class="btn">Open the map <i class="ph-bold ph-arrow-right"></i></a>
                 <a href="#census" class="link">See the Taco Census</a>
               </div>
-              <p class="mt-10 text-small text-text-secondary" data-rise>
-                <a id="open-now" href={CENSUS} target="_blank" rel="noopener noreferrer" class="hover:text-accent-ink">
-                  See which spots are open right now, live from the census.
+              <div class="mt-12" data-rise>
+                <a id="open-now" href={CENSUS} target="_blank" rel="noopener noreferrer" class="live">
+                  <span class="live-dot" aria-hidden="true"></span>
+                  <span data-live-text class="sm:whitespace-nowrap">See who’s open right now in the Taco Census</span>
                 </a>
-              </p>
+              </div>
             </div>
             <figure class="lg:col-span-8 lg:-mr-[max(2rem,calc((100vw-72rem)/2+2rem))]" data-rise>
               <div class="overflow-hidden">
-                <img id="hero-map" src="/shots/map-spots.jpg" width="1800" height="1025" alt="The CartoTaco map of Tucson, with clustered taco spots along South 12th Avenue and downtown" class="shot" />
+                <img id="hero-map" src="/shots/map-spots.jpg" width="2400" height="1857" alt="The CartoTaco map of central Tucson: coral markers for taco spots from downtown down South 12th Avenue, with the search, Surprise Me, Trail and lens controls" class="shot" />
               </div>
             </figure>
           </div>
@@ -141,10 +142,10 @@ const spots = [
           </div>
           <div class="mt-16 grid md:grid-cols-2 gap-5">
             <figure data-rise>
-              <img src="/shots/map-heat.jpg" width="1800" height="1025" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="shot" />
+              <img src="/shots/map-heat.jpg" width="1800" height="1742" loading="lazy" alt="Heat lens: spots coloured from pale to deep coral by salsa heat" class="shot" />
             </figure>
             <figure data-rise>
-              <img src="/shots/map-density.jpg" width="1800" height="1025" loading="lazy" alt="Density lens: a heatmap glowing over South Tucson and downtown" class="shot" />
+              <img src="/shots/map-density.jpg" width="1800" height="1742" loading="lazy" alt="Density lens: a heatmap glowing over South Tucson and downtown" class="shot" />
             </figure>
           </div>
           <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
@@ -162,10 +163,10 @@ const spots = [
       <section class="py-20 md:py-40 bg-bg-secondary" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           <figure class="lg:col-span-7 lg:-ml-[max(2rem,calc((100vw-72rem)/2+2rem))] order-2 lg:order-1" data-rise>
-            <img src="/shots/card.jpg" width="1800" height="1220" loading="lazy" alt="Spot card for Taqueria el Zarape: hours by day, Open Now, address, vibe check, and menu and protein radar charts" class="shot" />
+            <img src="/shots/card.jpg" width="2000" height="1691" loading="lazy" alt="Spot card for Taqueria el Zarape: week of open hours, Open Now, address, vibe check, menu and protein radar charts, heat 6 out of 10, handmade tortillas, and its salsas" class="shot" />
           </figure>
           <div class="lg:col-span-5 order-1 lg:order-2">
-            <h2 class="display text-heading" data-rise>Every spot, in detail</h2>
+            <h2 class="display text-heading" data-rise>What’s on a spot card</h2>
             <p class="mt-6 text-lead" data-rise>Tap a marker and the card tells you what you need before you drive across town.</p>
             <dl class="mt-12 space-y-8">
               {cardDetails.map(([name, text]) => (
@@ -189,16 +190,16 @@ const spots = [
             </p>
           </div>
           <div class="mt-16 grid lg:grid-cols-12 gap-5">
-            <figure class="lg:col-span-5" data-rise>
-              <img src="/shots/census-stats.jpg" width="1800" height="958" loading="lazy" alt="Census headline numbers: 24 spots on the map, 18 open right now, average heat 5.3 out of 10, 88 salsas citywide" class="shot" />
+            <figure class="lg:col-span-6" data-rise>
+              <img src="/shots/census-stats.jpg" width="1824" height="702" loading="lazy" alt="Census headline numbers: 24 spots on the map, 18 open right now, average heat 5.3 out of 10, 88 salsas citywide" class="shot" />
             </figure>
-            <figure class="lg:col-span-7" data-rise>
-              <img src="/shots/census-when.jpg" width="1190" height="460" loading="lazy" alt="When can you get a taco: a day-by-hour grid, darkest from late morning to early evening, Wednesday to Saturday" class="shot" />
+            <figure class="lg:col-span-6" data-rise>
+              <img src="/shots/census-when.jpg" width="1812" height="714" loading="lazy" alt="When can you get a taco: a day-by-hour grid, darkest from late morning to early evening, Wednesday to Saturday" class="shot" />
             </figure>
           </div>
           <div class="mt-16 grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             <figure class="lg:col-span-7" data-rise>
-              <img src="/shots/census-growth.jpg" width="1190" height="598" loading="lazy" alt="The map keeps growing: spots on the map from March to October, stepping up to 24 with one step down for a closure" class="shot" />
+              <img src="/shots/census-growth.jpg" width="1812" height="921" loading="lazy" alt="The map keeps growing: spots on the map from March to October, stepping up to 24 with one step down for a closure" class="shot" />
             </figure>
             <div class="lg:col-span-5 space-y-6" data-rise>
               <p class="text-lead">The growth chart counts closures too.</p>
@@ -211,43 +212,45 @@ const spots = [
         </div>
       </section>
 
-      <!-- ===== HONEST MAP ===== -->
-      <section id="honest" class="py-20 md:py-40 bg-bg-primary" data-section>
-        <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          <div class="lg:col-span-7">
-            <h2 class="display text-heading" data-rise>Nothing gets quietly deleted</h2>
-            <p class="mt-6 text-lead max-w-xl" data-rise>
-              A curated map is only worth trusting if it tells you what it doesn’t know.
+      <!-- ===== OPEN / CLOSED / SCOUTING ===== -->
+      <section id="status" class="py-20 md:py-40 bg-bg-primary" data-section>
+        <div class="max-w-6xl mx-auto px-5 md:px-8">
+          <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
+            <h2 class="display text-heading lg:col-span-7" data-rise>Open, closed, still scouting</h2>
+            <p class="lg:col-span-5 text-lead" data-rise>
+              Every marker says where a spot stands. The numbers only count places that have been checked in person.
             </p>
-            <dl class="mt-12 grid sm:grid-cols-2 gap-x-8 gap-y-10">
+          </div>
+          <div class="mt-16 grid lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+            <figure class="lg:col-span-8 lg:-ml-[max(2rem,calc((100vw-72rem)/2+2rem))]" data-rise>
+              <img src="/shots/closed-spot.jpg" width="2200" height="1684" loading="lazy" alt="North-central Tucson on CartoTaco: coral markers for vetted spots like Taqueria Juanitos and El Antojo Poblano, a grey cross for Hot Dogs 501, which has closed, and grey question marks for spots still being scouted" class="shot" />
+            </figure>
+            <dl class="lg:col-span-4 space-y-9">
               <div data-rise>
-                <dt class="font-semibold text-lead">Closed spots stay marked</dt>
-                <dd class="mt-1">A spot that closes for good turns into a grey cross on the map and says so on its card. It drops out of stats, recommendations and trails.</dd>
+                <dt class="font-semibold text-lead">Closed for good</dt>
+                <dd class="mt-1">A grey cross on the map and a note on its card. It drops out of stats, recommendations and trails, but it doesn’t vanish.</dd>
               </div>
               <div data-rise>
-                <dt class="font-semibold text-lead">Scouted isn’t vetted</dt>
-                <dd class="mt-1">Spots waiting for a visit show as grey question marks with a preliminary card. They’re never counted until they’ve been checked.</dd>
+                <dt class="font-semibold text-lead">Still being scouted</dt>
+                <dd class="mt-1">Grey question marks with a preliminary card. They aren’t counted anywhere until someone has eaten there.</dd>
               </div>
               <div data-rise>
-                <dt class="font-semibold text-lead">Still no star ratings</dt>
-                <dd class="mt-1">No stars, no rankings, no paid placement. A spot is on the map because it earned it.</dd>
+                <dt class="font-semibold text-lead">No star ratings</dt>
+                <dd class="mt-1">No stars, no rankings, no paid placement.</dd>
               </div>
               <div data-rise>
-                <dt class="font-semibold text-lead">Tucson to Green Valley</dt>
-                <dd class="mt-1">The map now reaches south to Green Valley, so the drive down I-19 counts.</dd>
+                <dt class="font-semibold text-lead">Down to Green Valley</dt>
+                <dd class="mt-1">The map now reaches south along I-19 to Green Valley.</dd>
               </div>
             </dl>
           </div>
-          <figure class="lg:col-span-5 max-w-sm mx-auto lg:max-w-none w-full" data-rise>
-            <img src="/shots/phone-map.jpg" width="647" height="1400" loading="lazy" alt="CartoTaco on a phone: clustered spots in central Tucson, grey question-mark markers for scouted spots, and a legend for vetted, pending and closed" class="shot" />
-          </figure>
         </div>
       </section>
 
       <!-- ===== TOGETHER ===== -->
       <section class="py-20 md:py-40 bg-accent text-[#111418]" data-section>
         <div class="max-w-6xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8">
-          <h2 class="display text-heading lg:col-span-5" data-rise>Built for the group chat</h2>
+          <h2 class="display text-heading lg:col-span-5" data-rise>Plan it with friends</h2>
           <dl class="lg:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-10">
             {together.map(([name, text]) => (
               <div data-rise>
@@ -290,7 +293,7 @@ const spots = [
             </div>
           </div>
           <div class="lg:col-span-6">
-            <h2 class="display text-heading" data-rise>Better with a login</h2>
+            <h2 class="display text-heading" data-rise>Free accounts</h2>
             <p class="mt-8 max-w-xl" data-rise>Still free, no credit card. The map works fine without an account, but your tacos get personal with one.</p>
             <dl class="mt-10 space-y-7 max-w-xl">
               <div data-rise>
@@ -352,10 +355,12 @@ const spots = [
       // The static link to the census stays if the request fails.
       const openNow = document.getElementById('open-now');
       countOpenNow().then(({ open, total }) => {
-        openNow.innerHTML = `Right now in Tucson, <strong class="font-semibold text-text-primary"><span data-count>${open}</span> of ${total}</strong> spots are open. See the census&nbsp;→`;
-        const n = openNow.querySelector('[data-count]');
+        openNow.querySelector('[data-live-text]').innerHTML =
+          `<strong class="live-num"><span data-count>${open}</span> of ${total}</strong> spots open right now`;
+        openNow.classList.add('is-live');
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          gsap.from(n, { textContent: 0, duration: 1.2, ease: 'power2.out', snap: { textContent: 1 } });
+          gsap.from(openNow.querySelector('[data-count]'), { textContent: 0, duration: 1.4, ease: 'power2.out', snap: { textContent: 1 } });
+          gsap.fromTo(openNow, { scale: 0.96 }, { scale: 1, duration: 0.6, ease: 'back.out(3)' });
         }
       }).catch(() => {});
 

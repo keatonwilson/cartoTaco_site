@@ -117,7 +117,49 @@ body {
   background: var(--bg-tertiary);
 }
 
+/* Live "open right now" line: a dark chip with a pulsing coral dot */
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-ink);
+  color: var(--on-ink);
+  font-size: var(--text-body);
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+:root.dark .live { background: var(--bg-tertiary); }
+.live:hover { transform: translateY(-2px); }
+.live-dot {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: var(--accent-primary);
+  box-shadow: 0 0 10px 2px rgb(254 121 93 / 0.7); /* taste-skill-ignore: requested live glow */
+  animation: live-pulse 2s ease-out infinite;
+}
+.live-num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--accent-primary);
+  text-shadow: 0 0 18px rgb(254 121 93 / 0.55); /* taste-skill-ignore: requested live glow */
+  margin-right: 0.25rem;
+  vertical-align: -0.15em;
+}
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 10px 2px rgb(254 121 93 / 0.7), 0 0 0 0 rgb(254 121 93 / 0.55); } /* taste-skill-ignore: requested live glow */
+  70% { box-shadow: 0 0 10px 2px rgb(254 121 93 / 0.7), 0 0 0 12px rgb(254 121 93 / 0); } /* taste-skill-ignore: requested live glow */
+  100% { box-shadow: 0 0 10px 2px rgb(254 121 93 / 0.7), 0 0 0 0 rgb(254 121 93 / 0); } /* taste-skill-ignore: requested live glow */
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+  .live { transition: none; }
   html { scroll-behavior: auto; }
   .btn, .btn i, .link { transition: none; }
 }
