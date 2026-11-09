@@ -1,5 +1,7 @@
 # Cloudflare Pages reads this file; netlify.toml headers do not apply there.
+# HSTS: 6 months, this host only. Add includeSubDomains (and preload) once every subdomain is HTTPS-only.
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=15552000
