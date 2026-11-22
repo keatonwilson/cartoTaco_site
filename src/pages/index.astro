@@ -274,7 +274,95 @@ import '../styles/global.css';
       <div class="max-w-5xl mx-auto px-6 relative z-10">
         <p class="font-body text-xs uppercase tracking-[0.3em] text-accent mb-4">Just shipped</p>
         <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
-          What’s new on the map
+          Know what you’re eating
+        </h2>
+        <p class="text-sm text-text-secondary mb-14 max-w-2xl leading-relaxed">
+          The salsas get their own guide. You can ask the map questions now. And every food fact in the app shows where it came from.
+        </p>
+
+        <!-- Salsa Atlas -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/salsa-atlas.jpg" width="2000" height="1508" loading="lazy" alt="The Salsa Atlas: Tucson's salsas as a honeycomb of hexagons, each in its own colours, clustered by family" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">The atlas, clustered by family</figcaption>
+          </figure>
+          <figure>
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/salsa-taquera.jpg" width="2000" height="1492" loading="lazy" alt="The Salsa Taquera page: a hexagon-framed bowl of orange-red salsa, its heat range of 5 to 8, and its four colours as swatches" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">Salsa Taquera, in its own colours</figcaption>
+          </figure>
+        </div>
+        <div class="max-w-2xl mb-20">
+          <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-3">The Salsa Atlas</h3>
+          <p class="text-sm text-text-secondary leading-relaxed mb-3">
+            Sixteen salsas, each drawn as a hexagon in its own colours. Sort the honeycomb by family, colour, region or heat. Tap one for its ingredients, its history, a flavour map that places it among the others, and where to find it. Heart a salsa and your picks lean toward the spots that serve it. That part needs a sign-in.
+          </p>
+          <p class="text-sm text-text-secondary leading-relaxed mb-4">
+            Spots are split two ways. <strong class="text-text-primary">Seen here</strong> means I photographed it there on a visit. <strong class="text-text-primary">Listed on the menu survey</strong> means the survey recorded it, but I haven’t confirmed it on a visit yet.
+          </p>
+          <a href="https://carto-taco.vercel.app/salsa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover">
+            Open the Salsa Atlas <i class="ph-bold ph-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Concierge -->
+        <div class="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-12 items-center mb-20">
+          <figure class="max-w-sm mx-auto md:mx-0 w-full">
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/concierge.jpg" width="760" height="1200" loading="lazy" alt="The concierge panel answering “What is chavindeca?”: a short description, two Tucson spots that serve it, and three credited sources under the reply" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">The chat panel, redrawn. The answer is a real one from the concierge.</figcaption>
+          </figure>
+          <div>
+            <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-3">Ask the concierge</h3>
+            <p class="text-sm text-text-secondary leading-relaxed mb-3">
+              Tap <strong class="text-text-primary">Ask</strong> and type what you’re after: <em>“somewhere spicy open now near downtown.”</em> It answers with spots from the map, and it can filter the map for you, plan a Taco Trail, set up a comparison or start a Taco Summit vote.
+            </p>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              Ask for picks and it works from your favorites. It doesn’t know about places that aren’t on the list, which is the point. Free, with a sign-in.
+            </p>
+          </div>
+        </div>
+
+        <!-- cocina -->
+        <div class="grid md:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-center">
+          <div>
+            <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-text-primary uppercase mb-3">Where every fact came from</h3>
+            <p class="text-sm text-text-secondary leading-relaxed mb-3">
+              Ask “what is chavindeca?” and the answer comes from <strong class="text-text-primary">cocina</strong>, a small database of Mexican food I’ve been building next to the map. Every fact in it is backed by a quote from a named author or publisher, and those sources show up under the answer. Spot cards use the same writeups for their specialties.
+            </p>
+            <p class="text-sm text-text-secondary leading-relaxed mb-6">
+              If the quote isn’t on the page it supposedly came from, the fact doesn’t get in.
+            </p>
+            <dl class="grid grid-cols-3 gap-4 mb-6 max-w-sm">
+              <div class="flex flex-col-reverse"><dt class="text-[10px] font-body uppercase tracking-widest text-text-tertiary">Foods</dt><dd class="font-display text-3xl font-extrabold text-accent">76</dd></div>
+              <div class="flex flex-col-reverse"><dt class="text-[10px] font-body uppercase tracking-widest text-text-tertiary">Claims</dt><dd class="font-display text-3xl font-extrabold text-accent">1,271</dd></div>
+              <div class="flex flex-col-reverse"><dt class="text-[10px] font-body uppercase tracking-widest text-text-tertiary">Writeups</dt><dd class="font-display text-3xl font-extrabold text-accent">71</dd></div>
+            </dl>
+            <p class="-mt-3 mb-6 text-[10px] font-body uppercase tracking-widest text-text-tertiary">As of the October 2026 snapshot</p>
+            <a href="https://github.com/keatonwilson/cocina" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold font-body uppercase tracking-widest text-accent hover:text-accent-hover">
+              How cocina checks its sources <i class="ph-bold ph-arrow-right"></i>
+            </a>
+          </div>
+          <figure class="max-w-sm mx-auto md:mx-0 w-full">
+            <div class="border-2 border-border-strong overflow-hidden">
+              <img src="/shots/card-cocina.jpg" width="972" height="1308" loading="lazy" alt="El Antojo Poblano's spot card with the Cemita specialty open: a short cocina writeup followed by six credited sources" class="w-full" />
+            </div>
+            <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">Cemita at El Antojo Poblano, sources included</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EARLIER ===== -->
+    <section class="py-20 md:py-28 bg-bg-tertiary relative grain overflow-hidden">
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.3em] text-text-tertiary mb-4">Earlier this fall</p>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary uppercase mb-4">
+          Map updates
         </h2>
         <p class="text-sm text-text-secondary mb-14 max-w-2xl leading-relaxed">
           Every marker now tells you where a spot stands: open, closed, or still being scouted. The census only counts places that have been checked in person. Still zero star ratings.
@@ -349,24 +437,6 @@ import '../styles/global.css';
         </h2>
         <p class="text-sm text-text-secondary mb-14 max-w-xl">No launch dates. Just the direction.</p>
         <div class="grid sm:grid-cols-2 gap-6 max-w-3xl">
-
-          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-pepper text-accent text-3xl mb-4 block"></i>
-            <div class="flex items-center gap-3 mb-3">
-              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">Salsa Atlas</h3>
-              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
-            </div>
-            <p class="text-sm text-text-secondary leading-relaxed">Every salsa style in one place, grouped by family, colour, region or heat. Each gets its own page with ingredients, history and the spots that serve it, and the salsas you favorite tune your Taste Profile.</p>
-          </div>
-
-          <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
-            <i class="ph ph-chat-circle-dots text-accent text-3xl mb-4 block"></i>
-            <div class="flex items-center gap-3 mb-3">
-              <h3 class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide">AI Assistant</h3>
-              <span class="text-[10px] font-body font-bold uppercase tracking-widest text-accent border border-accent px-2 py-0.5 shrink-0">Coming Soon</span>
-            </div>
-            <p class="text-sm text-text-secondary leading-relaxed">Ask the map in plain language: “open now, birria, handmade tortillas, near downtown.” Answers come only from the spots on the map, so it’s still a short list, just faster to search.</p>
-          </div>
 
           <div class="border-2 border-dashed border-border-strong p-6 hover:border-accent transition-colors">
             <i class="ph ph-map-pin text-accent text-3xl mb-4 block"></i>
@@ -491,6 +561,13 @@ import '../styles/global.css';
             <div>
               <p class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-1">Taste Profile</p>
               <p class="text-sm text-text-secondary leading-relaxed">Your AI-generated taco archetype, built from what you actually favorite. Unlocks automatically once you've saved a few spots.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="text-accent font-display font-extrabold text-lg mt-0.5 shrink-0">→</span>
+            <div>
+              <p class="font-display text-sm font-extrabold text-text-primary uppercase tracking-wide mb-1">The concierge</p>
+              <p class="text-sm text-text-secondary leading-relaxed">Ask the map in plain language. Ask for picks and it works from your favorites.</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
