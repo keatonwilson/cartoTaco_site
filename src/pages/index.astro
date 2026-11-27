@@ -169,6 +169,36 @@ import '../styles/global.css';
           </div>
           <span class="text-xl text-text-tertiary">4.2 (847 reviews)</span>
         </div>
+        <!-- Promo: stars → pins (silent, loops; source in cartoTaco_promo_video) -->
+        <figure class="mt-14">
+          <div class="border-2 border-border-strong overflow-hidden">
+            <video
+              id="promo-video"
+              class="w-full h-auto block"
+              width="1920"
+              height="1080"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/video/cartotaco-poster.jpg"
+              aria-label="Animated map of Tucson: a grid of identical 4.4-star listings turns into hand-picked taco pins. 27 spots vetted, and counting."
+            >
+              <source src="/video/cartotaco-web.webm" type="video/webm" />
+              <source src="/video/cartotaco-web.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <figcaption class="mt-3 text-xs font-body uppercase tracking-widest text-text-tertiary">Every pin is a place we've eaten.</figcaption>
+        </figure>
+        <script is:inline>
+          // Respect reduced motion: hold on the poster instead of autoplaying
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const v = document.getElementById('promo-video');
+            v.removeAttribute('autoplay');
+            v.pause();
+          }
+        </script>
       </div>
     </section>
 
